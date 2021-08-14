@@ -1,0 +1,85 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://assets/enemy/c/enemy1_03.png" type="Texture" id=1]
+[ext_resource path="res://src/Actor/enemy3.gd" type="Script" id=2]
+[ext_resource path="res://assets/enemy/c/enemy1_01.png" type="Texture" id=3]
+[ext_resource path="res://assets/Fall_damage_big.ogg" type="AudioStream" id=4]
+[ext_resource path="res://assets/enemy/c/enemy1_11.png" type="Texture" id=5]
+[ext_resource path="res://assets/enemy/c/enemy1_09.png" type="Texture" id=6]
+[ext_resource path="res://assets/enemy/c/enemy1_10.png" type="Texture" id=7]
+[ext_resource path="res://assets/enemy/c/enemy1_06.png" type="Texture" id=8]
+[ext_resource path="res://assets/enemy/c/enemy1_05.png" type="Texture" id=9]
+[ext_resource path="res://assets/enemy/c/enemy1_08.png" type="Texture" id=10]
+[ext_resource path="res://assets/enemy/c/enemy1_04.png" type="Texture" id=11]
+[ext_resource path="res://assets/enemy/c/enemy1_12.png" type="Texture" id=12]
+[ext_resource path="res://assets/enemy/c/enemy1_02.png" type="Texture" id=13]
+[ext_resource path="res://assets/enemy/c/enemy1_07.png" type="Texture" id=14]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 11 ), ExtResource( 9 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "left",
+"speed": 6.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 10 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "right",
+"speed": 6.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 5 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "top",
+"speed": 6.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 13 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "bottom",
+"speed": 6.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 15, 17 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 18, 20 )
+
+[node name="Enemy3" type="KinematicBody2D"]
+position = Vector2( 0, -3 )
+collision_layer = 2
+collision_mask = 13
+script = ExtResource( 2 )
+speed = Vector2( 150, 150 )
+gra = 0.0
+
+[node name="enemy3" type="AnimatedSprite" parent="."]
+position = Vector2( 1, -20 )
+scale = Vector2( 1.43, 1.352 )
+frames = SubResource( 1 )
+animation = "bottom"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -17 )
+shape = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Area2D" type="Area2D" parent="."]
+modulate = Color( 0.854902, 0, 0, 1 )
+collision_layer = 0
+collision_mask = 1025
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0, -17 )
+shape = SubResource( 3 )
+
+[node name="attacked" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

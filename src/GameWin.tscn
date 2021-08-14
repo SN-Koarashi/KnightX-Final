@@ -1,0 +1,139 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/background.png" type="Texture" id=1]
+[ext_resource path="res://assets/victory.png" type="Texture" id=2]
+[ext_resource path="res://src/GameWin.gd" type="Script" id=3]
+[ext_resource path="res://assets/Fanfare3.mp3" type="AudioStream" id=4]
+
+[node name="GameWin" type="Control"]
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="background" type="Sprite" parent="."]
+position = Vector2( 485, 234 )
+scale = Vector2( 0.556771, 0.596296 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_left = 396.0
+margin_top = 23.0
+margin_right = 596.0
+margin_bottom = 70.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="victory" type="Sprite" parent="CenterContainer"]
+position = Vector2( 96, 23 )
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 422.0
+margin_top = 72.0
+margin_right = 572.0
+margin_bottom = 86.0
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 324.0
+margin_top = 115.0
+margin_right = 406.0
+margin_bottom = 207.0
+rect_scale = Vector2( 1.5, 1.2 )
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimeBouns" type="Label" parent="VBoxContainer"]
+margin_top = 21.0
+margin_right = 82.0
+margin_bottom = 35.0
+text = "Time Bonus"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyS" type="Label" parent="VBoxContainer"]
+margin_top = 39.0
+margin_right = 82.0
+margin_bottom = 53.0
+text = "Enemy Score"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Tot" type="Label" parent="VBoxContainer"]
+margin_top = 57.0
+margin_right = 82.0
+margin_bottom = 71.0
+text = "Total"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+margin_left = 559.0
+margin_top = 115.0
+margin_right = 641.0
+margin_bottom = 207.0
+rect_scale = Vector2( 1.5, 1.2 )
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NTime" type="Label" parent="VBoxContainer2"]
+margin_top = 21.0
+margin_right = 82.0
+margin_bottom = 35.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="NSc" type="Label" parent="VBoxContainer2"]
+margin_top = 39.0
+margin_right = 82.0
+margin_bottom = 53.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="NTot" type="Label" parent="VBoxContainer2"]
+margin_top = 57.0
+margin_right = 82.0
+margin_bottom = 71.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Victory" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 435.0
+margin_top = 334.0
+margin_right = 552.0
+margin_bottom = 348.0
+text = "Press F5 to restart"

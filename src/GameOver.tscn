@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/GameOver.gd" type="Script" id=1]
+[ext_resource path="res://assets/wood_whistles.mp3" type="AudioStream" id=2]
+
+[node name="GameOver" type="Control"]
+margin_right = 960.0
+margin_bottom = 480.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Restart" type="Button" parent="."]
+margin_left = 393.0
+margin_top = 179.0
+margin_right = 540.0
+margin_bottom = 221.0
+text = "Restart"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_left = 394.0
+margin_top = 233.0
+margin_right = 540.0
+margin_bottom = 274.0
+text = "Exit Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -4.0
+autoplay = true
+
+[connection signal="pressed" from="Restart" to="." method="_on_Restart_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

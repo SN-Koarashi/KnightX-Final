@@ -1,0 +1,924 @@
+[gd_scene load_steps=33 format=2]
+
+[ext_resource path="res://src/Actor/Player.gd" type="Script" id=2]
+[ext_resource path="res://assets/charactor/char_07.png" type="Texture" id=3]
+[ext_resource path="res://assets/Fall_damage_big.ogg" type="AudioStream" id=4]
+[ext_resource path="res://assets/charactor/char_09.png" type="Texture" id=5]
+[ext_resource path="res://assets/charactor/char_08.png" type="Texture" id=7]
+[ext_resource path="res://assets/Gun1.ogg" type="AudioStream" id=8]
+[ext_resource path="res://assets/charactor/char_10.png" type="Texture" id=9]
+[ext_resource path="res://assets/charactor/char_12.png" type="Texture" id=10]
+[ext_resource path="res://assets/charactor/char_11.png" type="Texture" id=11]
+[ext_resource path="res://assets/charactor/char_02.png" type="Texture" id=12]
+[ext_resource path="res://assets/charactor/char_06.png" type="Texture" id=13]
+[ext_resource path="res://assets/charactor/char_01.png" type="Texture" id=14]
+[ext_resource path="res://assets/charactor/char_03.png" type="Texture" id=15]
+[ext_resource path="res://assets/charactor/char_04.png" type="Texture" id=16]
+[ext_resource path="res://assets/charactor/char_05.png" type="Texture" id=17]
+[ext_resource path="res://assets/charactor/Shadow.png" type="Texture" id=18]
+[ext_resource path="res://assets/animeation/attack/Attack7_07.png" type="Texture" id=19]
+[ext_resource path="res://assets/animeation/attack/Attack7_02.png" type="Texture" id=20]
+[ext_resource path="res://assets/animeation/attack/Attack7_04.png" type="Texture" id=21]
+[ext_resource path="res://assets/animeation/attack/Attack7_01.png" type="Texture" id=22]
+[ext_resource path="res://assets/animeation/attack/Attack7_03.png" type="Texture" id=23]
+[ext_resource path="res://assets/animeation/attack/Attack7_05.png" type="Texture" id=24]
+[ext_resource path="res://assets/Damage1.ogg" type="AudioStream" id=25]
+[ext_resource path="res://assets/Item1.ogg" type="AudioStream" id=26]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 16 ), ExtResource( 17 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "left",
+"speed": 6.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 7 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "right",
+"speed": 6.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 11 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "top",
+"speed": 6.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 12 ), ExtResource( 15 ) ],
+"loop": true,
+"name": "down",
+"speed": 6.0
+} ]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 19 ), ExtResource( 22 ), ExtResource( 20 ), ExtResource( 23 ), ExtResource( 21 ), ExtResource( 24 ) ],
+"loop": false,
+"name": "default",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 83.4099, 83.4098 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 20, 21 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.901961, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.215686, 0.215686, 0.215686, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 2
+shadow_offset = Vector2( 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0, 0.72549, 0, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_size = 2
+shadow_offset = Vector2( 1, 1 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 24, 24 )
+
+[node name="Player" type="KinematicBody2D"]
+z_index = 3
+collision_mask = 10
+script = ExtResource( 2 )
+speed = Vector2( 275, 275 )
+
+[node name="Shadow" type="Sprite" parent="."]
+position = Vector2( -2.98023e-08, -10 )
+scale = Vector2( 1.28125, 1.3125 )
+texture = ExtResource( 18 )
+
+[node name="Player" type="AnimatedSprite" parent="."]
+position = Vector2( 3.8147e-06, -18 )
+scale = Vector2( 1.43006, 1.35194 )
+frames = SubResource( 1 )
+animation = "down"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Attack" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -18 )
+scale = Vector2( 0.317708, 0.317708 )
+z_index = 10
+frames = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="AttackArea" type="Area2D" parent="Attack"]
+scale = Vector2( 0.2, 0.2 )
+collision_layer = 1024
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack/AttackArea"]
+position = Vector2( 1.57376, 1.57375 )
+shape = SubResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -18 )
+shape = SubResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ViewNow" type="Camera2D" parent="."]
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 0, -18 )
+z_index = 130
+current = true
+
+[node name="craftMenu" type="Panel" parent="Camera2D"]
+visible = false
+margin_left = -299.0
+margin_top = -146.0
+margin_right = 302.0
+margin_bottom = 156.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Camera2D/craftMenu"]
+margin_left = 124.0
+margin_top = 6.0
+margin_right = 172.0
+margin_bottom = 20.0
+text = "Crafting"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Camera2D/craftMenu"]
+margin_left = 32.0
+margin_top = 34.0
+margin_right = 80.0
+margin_bottom = 48.0
+text = "Tools"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="Camera2D/craftMenu"]
+margin_left = 124.0
+margin_top = 34.0
+margin_right = 176.0
+margin_bottom = 48.0
+text = "Building"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="Camera2D/craftMenu"]
+margin_left = 32.0
+margin_top = 159.0
+margin_right = 84.0
+margin_bottom = 173.0
+text = "Weapon"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="toolsM" type="Panel" parent="Camera2D/craftMenu"]
+margin_left = 19.0
+margin_top = 52.0
+margin_right = 95.0
+margin_bottom = 136.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="pickaxe" type="Button" parent="Camera2D/craftMenu/toolsM"]
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 74.0
+margin_bottom = 25.0
+text = "Pickaxe"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="shear" type="Button" parent="Camera2D/craftMenu/toolsM"]
+margin_left = 3.0
+margin_top = 30.0
+margin_right = 74.0
+margin_bottom = 50.0
+text = "Shear"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="axe" type="Button" parent="Camera2D/craftMenu/toolsM"]
+margin_left = 3.0
+margin_top = 55.0
+margin_right = 74.0
+margin_bottom = 75.0
+text = "Axe"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="buildingM" type="Panel" parent="Camera2D/craftMenu"]
+margin_left = 111.0
+margin_top = 52.0
+margin_right = 187.0
+margin_bottom = 136.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="house" type="Button" parent="Camera2D/craftMenu/buildingM"]
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 74.0
+margin_bottom = 25.0
+text = "House"
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="chest" type="Button" parent="Camera2D/craftMenu/buildingM"]
+margin_left = 3.0
+margin_top = 30.0
+margin_right = 74.0
+margin_bottom = 50.0
+text = "Chest"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="crystal" type="Button" parent="Camera2D/craftMenu/buildingM"]
+margin_left = 3.0
+margin_top = 55.0
+margin_right = 74.0
+margin_bottom = 75.0
+text = "Crystal"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="weaponM" type="Panel" parent="Camera2D/craftMenu"]
+margin_left = 19.0
+margin_top = 176.0
+margin_right = 95.0
+margin_bottom = 260.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sword" type="Button" parent="Camera2D/craftMenu/weaponM"]
+margin_left = -9.0
+margin_top = 3.0
+margin_right = 95.0
+margin_bottom = 23.0
+text = "Short Darts"
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="magic" type="Button" parent="Camera2D/craftMenu/weaponM"]
+margin_left = -9.0
+margin_top = 28.0
+margin_right = 95.0
+margin_bottom = 48.0
+text = "Magic Fire"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="soul" type="Button" parent="Camera2D/craftMenu/weaponM"]
+margin_left = -9.0
+margin_top = 53.0
+margin_right = 95.0
+margin_bottom = 73.0
+text = "Soul Explosion"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label5" type="Label" parent="Camera2D/craftMenu"]
+margin_left = 433.0
+margin_top = 7.0
+margin_right = 476.0
+margin_bottom = 21.0
+text = "Recipe"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Camera2D/craftMenu"]
+margin_left = 311.0
+margin_top = 25.0
+margin_right = 592.0
+margin_bottom = 298.0
+text = "= Pickaxe = 
+stone*20 + wood*10
+= Shear =
+stone *15 + wood*10
+= Axe =
+stone*25 + wood*10
+= Sword =
+stone*50 + wood*25 + rope*15
+= Magic =
+stone*200 + wood*200 + rope*300
+= Soul =
+stone*400 + wood*400 + rope*600
+= House =
+stone*300 + wood*300 + rope*120
+= Chest =
+wood*100 + rope*50
+= Crystal =
+rope*300"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="invMneu" type="Panel" parent="Camera2D"]
+visible = false
+margin_left = -149.0
+margin_top = 121.0
+margin_right = 150.0
+margin_bottom = 224.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Camera2D/invMneu"]
+margin_left = 12.0
+margin_top = 37.0
+margin_right = 61.0
+margin_bottom = 51.0
+text = "Wood : "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Camera2D/invMneu"]
+margin_left = 13.0
+margin_top = 56.0
+margin_right = 61.0
+margin_bottom = 70.0
+text = "Stone : "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="wood" type="Label" parent="Camera2D/invMneu"]
+margin_left = 60.0
+margin_top = 37.0
+margin_right = 72.0
+margin_bottom = 51.0
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="stone" type="Label" parent="Camera2D/invMneu"]
+margin_left = 60.0
+margin_top = 56.0
+margin_right = 73.0
+margin_bottom = 70.0
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="Camera2D/invMneu"]
+margin_left = 17.0
+margin_top = 73.0
+margin_right = 61.0
+margin_bottom = 87.0
+text = "Rope : "
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="rope" type="Label" parent="Camera2D/invMneu"]
+margin_left = 59.0
+margin_top = 74.0
+margin_right = 73.0
+margin_bottom = 88.0
+text = "0"
+align = 1
+valign = 1
+
+[node name="Label4" type="Label" parent="Camera2D/invMneu"]
+margin_left = 115.0
+margin_top = 8.0
+margin_right = 176.0
+margin_bottom = 22.0
+text = "Inventory"
+
+[node name="escMenu" type="Panel" parent="Camera2D"]
+pause_mode = 2
+visible = false
+margin_left = -93.0
+margin_top = -147.0
+margin_right = 95.0
+margin_bottom = 118.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tips" type="Button" parent="Camera2D/escMenu"]
+margin_left = 32.0
+margin_top = 199.0
+margin_right = 155.0
+margin_bottom = 221.0
+text = "Tips"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="help" type="Button" parent="Camera2D/escMenu"]
+margin_left = 32.0
+margin_top = 173.0
+margin_right = 155.0
+margin_bottom = 195.0
+text = "Help"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="exit" type="Button" parent="Camera2D/escMenu"]
+margin_left = 32.0
+margin_top = 225.0
+margin_right = 155.0
+margin_bottom = 247.0
+button_mask = 3
+text = "Exit Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="continue" type="Button" parent="Camera2D/escMenu"]
+margin_left = 33.0
+margin_top = 46.0
+margin_right = 155.0
+margin_bottom = 72.0
+text = "Continue"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Camera2D/escMenu"]
+margin_left = 59.0
+margin_top = 13.0
+margin_right = 105.0
+margin_bottom = 27.0
+rect_scale = Vector2( 1.5, 1.5 )
+text = "Paused"
+align = 1
+
+[node name="musicSound" type="HSlider" parent="Camera2D/escMenu"]
+margin_left = 54.0
+margin_top = 108.0
+margin_right = 134.0
+margin_bottom = 124.0
+min_value = -80.0
+max_value = 5.0
+value = -2.0
+tick_count = 5
+ticks_on_borders = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Camera2D/escMenu"]
+margin_left = 53.0
+margin_top = 93.0
+margin_right = 134.0
+margin_bottom = 107.0
+text = "Music Sound"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="Camera2D/escMenu"]
+margin_left = 55.0
+margin_top = 127.0
+margin_right = 133.0
+margin_bottom = 141.0
+text = "Effect Sound"
+
+[node name="effectSound" type="HSlider" parent="Camera2D/escMenu"]
+margin_left = 53.0
+margin_top = 144.0
+margin_right = 132.0
+margin_bottom = 160.0
+min_value = -80.0
+max_value = 5.0
+value = -7.0
+tick_count = 5
+ticks_on_borders = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="chestMenu" type="Panel" parent="Camera2D"]
+visible = false
+margin_left = -116.0
+margin_top = -129.0
+margin_right = 115.0
+margin_bottom = 93.0
+rect_pivot_offset = Vector2( 37, 93 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Camera2D/chestMenu"]
+margin_left = 97.0
+margin_top = 8.0
+margin_right = 136.0
+margin_bottom = 22.0
+text = "Chest"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="wdbar" type="HSlider" parent="Camera2D/chestMenu"]
+margin_left = 15.0
+margin_top = 55.0
+margin_right = 212.0
+margin_bottom = 71.0
+editable = false
+tick_count = 20
+ticks_on_borders = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Camera2D/chestMenu"]
+margin_left = 97.0
+margin_top = 41.0
+margin_right = 135.0
+margin_bottom = 55.0
+text = "Wood"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="stbar" type="HSlider" parent="Camera2D/chestMenu"]
+margin_left = 17.0
+margin_top = 93.0
+margin_right = 214.0
+margin_bottom = 109.0
+editable = false
+tick_count = 20
+ticks_on_borders = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="Camera2D/chestMenu"]
+margin_left = 98.0
+margin_top = 77.0
+margin_right = 136.0
+margin_bottom = 91.0
+text = "Stone"
+
+[node name="rpbar" type="HSlider" parent="Camera2D/chestMenu"]
+margin_left = 15.0
+margin_top = 137.0
+margin_right = 212.0
+margin_bottom = 153.0
+editable = false
+tick_count = 20
+ticks_on_borders = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="Camera2D/chestMenu"]
+margin_left = 100.0
+margin_top = 122.0
+margin_right = 133.0
+margin_bottom = 136.0
+text = "Rope"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="done" type="Button" parent="Camera2D/chestMenu"]
+margin_left = 21.0
+margin_top = 194.0
+margin_right = 107.0
+margin_bottom = 214.0
+text = "Apply"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="close" type="Button" parent="Camera2D/chestMenu"]
+margin_left = 126.0
+margin_top = 194.0
+margin_right = 212.0
+margin_bottom = 214.0
+text = "Close"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckBox" type="CheckBox" parent="Camera2D/chestMenu"]
+margin_left = 51.0
+margin_top = 167.0
+margin_right = 179.0
+margin_bottom = 191.0
+disabled = true
+text = "Withdraw Mode"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Camera2D"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -23.0
+margin_top = -223.0
+margin_right = 8.0
+margin_bottom = -209.0
+rect_scale = Vector2( 1.5, 1.5 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Time"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Camera2D"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -25.0
+margin_top = -203.0
+margin_right = 15.0
+margin_bottom = -189.0
+rect_scale = Vector2( 1.3, 1.3 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "00:00"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Health" type="Panel" parent="Camera2D"]
+margin_left = -463.0
+margin_top = -221.0
+margin_right = -341.0
+margin_bottom = -193.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="hp1" type="Panel" parent="Camera2D/Health"]
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 41.0
+margin_bottom = 25.0
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="hp2" type="Panel" parent="Camera2D/Health"]
+margin_left = 42.0
+margin_top = 3.0
+margin_right = 80.0
+margin_bottom = 25.0
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="hp3" type="Panel" parent="Camera2D/Health"]
+margin_left = 81.0
+margin_top = 3.0
+margin_right = 119.0
+margin_bottom = 25.0
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mission" type="Panel" parent="Camera2D"]
+visible = false
+margin_left = -465.0
+margin_top = 68.0
+margin_right = -315.0
+margin_bottom = 227.0
+rect_pivot_offset = Vector2( 33, 50 )
+custom_styles/panel = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="wd" type="CheckBox" parent="Camera2D/Mission"]
+margin_left = 6.0
+margin_top = 21.0
+margin_right = 142.0
+margin_bottom = 45.0
+button_mask = 0
+text = "Have 100 Woods"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="st" type="CheckBox" parent="Camera2D/Mission"]
+margin_left = 6.0
+margin_top = 43.0
+margin_right = 142.0
+margin_bottom = 67.0
+button_mask = 0
+text = "Have 100 Stones"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="rp" type="CheckBox" parent="Camera2D/Mission"]
+margin_left = 6.0
+margin_top = 65.0
+margin_right = 142.0
+margin_bottom = 89.0
+button_mask = 0
+text = "Have 100 Ropes"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ene" type="CheckBox" parent="Camera2D/Mission"]
+margin_left = 6.0
+margin_top = 87.0
+margin_right = 142.0
+margin_bottom = 111.0
+button_mask = 0
+text = "Kill 15 Enemies"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="craft" type="CheckBox" parent="Camera2D/Mission"]
+margin_left = 6.0
+margin_top = 109.0
+margin_right = 145.0
+margin_bottom = 133.0
+button_mask = 0
+text = "Crafting All Items"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Camera2D/Mission"]
+margin_left = 50.0
+margin_top = 6.0
+margin_right = 100.0
+margin_bottom = 20.0
+text = "Mission"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Camera2D/Mission"]
+margin_left = 31.0
+margin_top = 134.0
+margin_right = 124.0
+margin_bottom = 154.0
+disabled = true
+text = "Completed"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BDMode" type="Panel" parent="Camera2D"]
+visible = false
+margin_left = -54.0
+margin_top = -180.0
+margin_right = 55.0
+margin_bottom = -156.0
+custom_styles/panel = SubResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Camera2D/BDMode"]
+margin_left = 5.0
+margin_top = 6.0
+margin_right = 103.0
+margin_bottom = 20.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Architect Mode"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+modulate = Color( 0.0980392, 0, 0.458824, 1 )
+position = Vector2( 0, -18 )
+shape = SubResource( 8 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="attackEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 25 )
+volume_db = -7.0
+
+[node name="Knockback" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="onFire" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+
+[node name="guiEffect" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+stream = ExtResource( 26 )
+volume_db = -7.0
+
+[node name="Not" type="Node2D" parent="."]
+position = Vector2( 213, 198 )
+z_index = 122
+
+[node name="Notice" type="Label" parent="Not"]
+margin_left = -172.0
+margin_right = 258.0
+margin_bottom = 14.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NoticeTimer" type="Timer" parent="."]
+
+[node name="SwordTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="Attack/AttackArea" to="." method="_on_AttackArea_body_entered"]
+[connection signal="pressed" from="Camera2D/craftMenu/toolsM/pickaxe" to="." method="_on_pickaxe_pressed"]
+[connection signal="pressed" from="Camera2D/craftMenu/toolsM/shear" to="." method="_on_shear_pressed"]
+[connection signal="pressed" from="Camera2D/craftMenu/toolsM/axe" to="." method="_on_axe_pressed"]
+[connection signal="pressed" from="Camera2D/craftMenu/buildingM/house" to="." method="_on_house_pressed"]
+[connection signal="pressed" from="Camera2D/craftMenu/buildingM/chest" to="." method="_on_chest_pressed"]
+[connection signal="pressed" from="Camera2D/craftMenu/buildingM/crystal" to="." method="_on_crystal_pressed"]
+[connection signal="pressed" from="Camera2D/craftMenu/weaponM/sword" to="." method="_on_sword_pressed"]
+[connection signal="pressed" from="Camera2D/craftMenu/weaponM/magic" to="." method="_on_magic_pressed"]
+[connection signal="pressed" from="Camera2D/craftMenu/weaponM/soul" to="." method="_on_soul_pressed"]
+[connection signal="pressed" from="Camera2D/escMenu/tips" to="." method="_on_tips_pressed"]
+[connection signal="pressed" from="Camera2D/escMenu/help" to="." method="_on_help_pressed"]
+[connection signal="gui_input" from="Camera2D/escMenu/exit" to="." method="_on_exit_gui_input"]
+[connection signal="pressed" from="Camera2D/escMenu/exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Camera2D/escMenu/continue" to="." method="_on_continue_pressed"]
+[connection signal="value_changed" from="Camera2D/escMenu/musicSound" to="." method="_on_musicSound_value_changed"]
+[connection signal="value_changed" from="Camera2D/escMenu/effectSound" to="." method="_on_effectSound_value_changed"]
+[connection signal="pressed" from="Camera2D/chestMenu/done" to="." method="_on_done_pressed"]
+[connection signal="pressed" from="Camera2D/chestMenu/close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="Camera2D/chestMenu/CheckBox" to="." method="_on_CheckBox_pressed"]
+[connection signal="pressed" from="Camera2D/Mission/Button" to="." method="_on_Button_pressed"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="NoticeTimer" to="." method="_on_NoticeTimer_timeout"]
+[connection signal="timeout" from="SwordTimer" to="." method="_on_SwordTimer_timeout"]
